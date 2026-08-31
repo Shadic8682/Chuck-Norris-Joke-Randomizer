@@ -4,6 +4,7 @@ function randomNum() {
     return Math.floor(Math.random() * 107);
 }
 
+// This is the array of jokes our program will display.
 const jokes = [
   "Jack was nimble, Jack was quick, but Jack still couldn't dodge Chuck Norris' roundhouse kick.",
   "In the Beginning, there was nothing. Then Chuck Norris roundhouse kicked nothing and told it to get a job.",
@@ -114,6 +115,7 @@ const jokes = [
   "Voldemort refers to Chuck Norris as ‘You Know Who’."
 ];
 
+// This function will log a random joke to the console each time the app is ran.
 function displayRandomJoke() {
     console.log(jokes[randomNum()]);
 }
