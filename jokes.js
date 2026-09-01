@@ -1,4 +1,7 @@
-// Returns a random number between 0-107. Since our array will have 107 jokes, this function will be used to generate the index of the joke that will be displayed.
+import * as readline from 'node:readline/promises';
+import { stdin as input, stdout as output } from 'node:process';
+
+// Returns a random number between 0-106. Since our array will have 107 jokes, this function will be used to generate the index of the joke that will be displayed.
 
 function randomNum() {
     return Math.floor(Math.random() * 107);
@@ -120,4 +123,31 @@ function displayRandomJoke() {
     console.log(jokes[randomNum()]);
 }
 
-displayRandomJoke();
+// Now we move on to a more advanced feature that will acually prompt the user for input.
+const rl = readline.createInterface({input, output});
+
+async function whatDoYouWant() {
+    const choice = Number((await rl.question("Enter 1 for a random joke, 2 for the joke number selector, or 3 to exit.")).trim());
+    console.log(choice);
+    if (choice === 1) {
+        displayRandomJoke();
+        whatDoYouWant();
+    } else if (choice === 2) {
+        const choice2 = Number((await rl.question("Enter a number between 0-106...")).trim());
+        if (Number.isInteger(choice2) && choice2 >= 0 && choice2 < jokes.length) {
+            console.log(jokes[choice2]);
+            whatDoYouWant();
+        } else {
+            console.log("Invalid input, shutting down...");
+            rl.close();
+        }
+    } else if (choice === 3) {
+        console.log("Exiting the program...");
+        rl.close();
+    } else {
+        console.log("Invalid input, try again.");
+        whatDoYouWant();
+    }
+}
+
+whatDoYouWant();
